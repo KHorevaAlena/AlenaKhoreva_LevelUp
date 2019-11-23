@@ -25,41 +25,41 @@ public class Calculator {
         String operation = sc.next();
 
         if (operation.equals("+")) {
-            double firstNum = ReadDoubleFromKeyboard("Введите первое число:");
-            double secondNum = ReadDoubleFromKeyboard("Введите второе число:");
+            double firstNum = readDoubleFromKeyboard("Введите первое число:");
+            double secondNum = readDoubleFromKeyboard("Введите второе число:");
 
             Summation sum = new Summation();
             double result = sum.calculate(firstNum, secondNum);
             System.out.println("Сумма введенных значений: " + result);
         } else if (operation.equals("-")) {
-            int firstNum = ReadIntFromKeyboard("Введите первое число:");
-            int secondNum = ReadIntFromKeyboard("Введите второе число:");
+            int firstNum = readIntFromKeyboard("Введите первое число:");
+            int secondNum = readIntFromKeyboard("Введите второе число:");
 
             Subtraction sub = new Subtraction();
             int result = sub.calculate(firstNum, secondNum);
             System.out.println("Разница введенных значений: " + result);
         } else if (operation.equals("*")) {
-            double firstNum = ReadDoubleFromKeyboard("Введите первое число:");
-            double secondNum = ReadDoubleFromKeyboard("Введите второе число:");
+            double firstNum = readDoubleFromKeyboard("Введите первое число:");
+            double secondNum = readDoubleFromKeyboard("Введите второе число:");
 
             Multiplication multipl = new Multiplication();
             double result = multipl.calculate(firstNum, secondNum);
             System.out.println("Произведение введенных значений: " + result);
         } else if (operation.equals("^")) {
-            int firstNum = ReadIntFromKeyboard("Введите значение степени:");
-            double secondNum = ReadDoubleFromKeyboard("Введите значение аргумента:");
+            double argNum = readDoubleFromKeyboard("Введите значение аргумента:");
+            int degreeNum = readIntFromKeyboard("Введите значение степени:");
 
             Exponentiation exp = new Exponentiation();
-            double result = exp.calculate(firstNum, secondNum);
+            double result = exp.calculate(argNum, degreeNum);
             System.out.println("Степень введенного значения: " + result);
         } else if (operation.equals("!")) {
-            int firstNum = ReadIntFromKeyboard("Введите число для расчета факториала:");
+            int number = readIntFromKeyboard("Введите число для расчета факториала:");
 
             Factorial factorial = new Factorial();
-            int result = factorial.calculate(firstNum);
+            int result = factorial.calculate(number);
             System.out.println("Факториал введенного числа: " + result);
         } else if (operation.equals("Fibonacci")) {
-            int firstNum = ReadIntFromKeyboard("Введите значение для расчета числа Фибоначчи:");
+            int firstNum = readIntFromKeyboard("Введите значение для расчета числа Фибоначчи:");
 
             FibonacciNumber fibnc = new FibonacciNumber();
             int result = fibnc.calculate(firstNum);
@@ -69,12 +69,12 @@ public class Calculator {
         }
     }
 
-    private double ReadDoubleFromKeyboard(String prompt) {
+    private double readDoubleFromKeyboard(String prompt) {
         System.out.println(prompt);
         return sc.nextDouble();
     }
 
-    private int ReadIntFromKeyboard(String prompt) {
+    private int readIntFromKeyboard(String prompt) {
         System.out.println(prompt);
         return sc.nextInt();
     }
