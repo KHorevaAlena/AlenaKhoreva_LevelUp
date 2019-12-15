@@ -1,65 +1,72 @@
 package ru.levelup.alena.khoreva.qa_1_3.java;
 
+import com.epam.tat.module4.Calculator;
 import org.junit.Test;
-import com.epam.tat.module4.*;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import javax.naming.Name;
-import java.util.Arrays;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
-@RunWith(Parameterized.class)
+@RunWith(Enclosed.class)
 public class SummationTest {
 
-    Calculator calculator = new Calculator();
+    @RunWith(Parameterized.class)
+    public static class SumPositive {
 
-    private long valueA;
-    private long valueB;
-    private long expected;
+        @Parameterized.Parameters
+        public static Object[][] data() {
+            return new Object[][]{
+                    {1.0, 2.0, 3.0},
+                    {0, 3.0, 3.0},
+                    {8.0, 2.0, 10.0},
+                    {-1.0, 4.0, 3.0},
+                    {3256.0, 4.0, 3260.0}
+            };
+        }
 
-    public SummationTest(long valueA, long valueB, long expected){
-        this.valueA = valueA;
-        this.valueB = valueB;
-        this.expected = expected;
+        @Parameterized.Parameter(0)
+        public double valueA;
+        @Parameterized.Parameter(1)
+        public double valueB;
+        @Parameterized.Parameter(2)
+        public double expected;
+
+        @Test
+        public void testAdd() throws Exception {
+            Calculator calculator = new Calculator();
+            double actualResult = calculator.sum(valueA, valueB);
+            assertEquals(expected, actualResult, 0.0001);
+        }
     }
 
-    @Parameterized.Parameters (name = "{index}: first argument: {0}, second argument: {1}, expected: {2}")
-    public static Iterable<Object[]> data() {
-        return Arrays.asList(new Object[][]{
-                {1, 4, 5},
-                {2, -2, 0},
-                {3, -10, -7}
-        });
-    }
+    @RunWith(Parameterized.class)
+    public static class SumNegative {
 
-    @Test
-    public void positiveSumIntegersTest() {
-        long result = calculator.sum(valueA, valueB);
+        @Parameterized.Parameters
+        public static Object[][] data() {
+            return new Object[][]{
+                    {2.0, 3.0, 4.0},
+                    {1.0, 0.0, 3.0},
+                    {8.0, 2.0, 6.0},
+                    {-1.0, 4.0, -5.0},
+                    {3250.0, 4.0, 3252.0}
+            };
+        }
 
-        assertEquals(expected, result);
-    }
+        @Parameterized.Parameter(0)
+        public double valueA;
+        @Parameterized.Parameter(1)
+        public double valueB;
+        @Parameterized.Parameter(2)
+        public double unexpected;
 
-    @Test
-    public void positiveSumDoubleTest(){
-        double result = calculator.sum(5.5,7.7);
-
-        assertEquals(13.2, result, 0.00001);
-    }
-
-    @Test
-    public void negativeSumIntegersTest() {
-        long result = calculator.sum(4,3);
-
-        assertNotEquals(8, result);
-    }
-
-    @Test
-    public void negativeSumDoubleTest(){
-        double result = calculator.sum(3.2,4.6);
-
-        assertNotEquals(8.8, result, 0.00001);
+        @Test
+        public void testSub() throws Exception {
+            Calculator calculator = new Calculator();
+            double actualResult = calculator.sum(valueA, valueB);
+            assertNotEquals(unexpected, actualResult, 0.00001);
+        }
     }
 }
